@@ -6,9 +6,12 @@ obrigado prof.Zico S2
 PARA RODAR ESSE PROJETO LOCALMENTE DE INSTALAR AS SEGUINTES TECNOLOGIAS
 {
     nodejs
-    npm
+    npm OU yarn
     postman OU insominia (PARA EFETUAR AS REQUISIÇÕES)
 }
+
+COMANDO PARA BAIXAR TODAS AS DEPENDENCIAS DO PROJETO
+npm intall OU yarn
 
 COMANDO PARA RODAR O LIGAR O SERVIDOR
 npm run dev OU yarn dev
