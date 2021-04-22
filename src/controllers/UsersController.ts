@@ -1,7 +1,5 @@
 import { Request, Response } from 'express'
-import { getCustomRepository } from 'typeorm';
-import { User } from '../entities/User';
-import { UsersRepository } from '../repositories/UsersRepository';
+import { UsersService } from '../services/UsersServices';
 
 class UsersController {
 
@@ -9,65 +7,67 @@ class UsersController {
         
         const { name, email } = request.body;
 
-        const usersRepository = getCustomRepository(UsersRepository);
+        const usersService = new UsersService;
 
-        const users = usersRepository.create({
-            name,
-            email
-        });
+        try {
+            const users = await usersService.create({ name, email });
 
-        await usersRepository.save(users);
-
-        return response.json(users);
+            return response.json(users);
+        } catch (err) {
+            return response.status(400).json({
+                message: err.message
+            });
+        }
     }
 
     async read(request: Request, response: Response){    
-        const { id } = request.body
-        
-        const user = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("user")
-        .where("user.id = :id", {id: id})
-        .getOne();
+        const { id_r } = request.body
 
-        return response.json(user);
+        const usersService = new UsersService;
+
+        try {
+            const users = await usersService.read({ id_r });
+
+            return response.json(users);
+        } catch (err) {
+            return response.status(400).json({
+                message: err.message
+            });
+        }
     }
 
     async update(request: Request, response: Response){
         
-        const { id, new_name, new_email } = request.body;
+        const { id_u, name_u, email_u } = request.body;
 
-        const usersRepository = getCustomRepository(UsersRepository);
+        const usersService = new UsersService;
 
-        const user = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("user")
-        .where("user.id = :id", {id: id})
-        .getOne();
+        try {
+            const users = await usersService.update({ id_u, name_u, email_u });
 
-        user.name  = new_name;
-        user.email = new_email;
-
-        await usersRepository.save(user);
-
-        return response.json(user);
+            return response.json(users);
+        } catch (err) {
+            return response.status(400).json({
+                message: err.message
+            });
+        }
     }
 
     async delete(request: Request, response: Response){
         
-        const { id } = request.body;
+        const { id_d } = request.body;
 
-        const usersRepository = getCustomRepository(UsersRepository);
+        const usersService = new UsersService;
 
-        const user = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("user")
-        .where("user.id = :id", {id: id})
-        .getOne();
+        try {
+            const users = await usersService.delete({ id_d });
 
-        await usersRepository.delete(user);
-
-        return response.json({
-            user,
-            message: "User has ben deleted!"
-        });
+            return response.json(users);
+        } catch (err) {
+            return response.status(400).json({
+                message: err.message
+            });
+        }
     }
     
 }
