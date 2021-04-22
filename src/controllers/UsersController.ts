@@ -3,8 +3,8 @@ import { UsersService } from '../services/UsersServices';
 
 class UsersController {
 
-    async create(request: Request, response: Response){
-        
+    async create(request: Request, response: Response) {
+
         const { name, email } = request.body;
 
         const usersService = new UsersService;
@@ -20,7 +20,7 @@ class UsersController {
         }
     }
 
-    async read(request: Request, response: Response){    
+    async read(request: Request, response: Response) {
         const { id_r } = request.body
 
         const usersService = new UsersService;
@@ -36,8 +36,8 @@ class UsersController {
         }
     }
 
-    async update(request: Request, response: Response){
-        
+    async update(request: Request, response: Response) {
+
         const { id_u, name_u, email_u } = request.body;
 
         const usersService = new UsersService;
@@ -53,8 +53,8 @@ class UsersController {
         }
     }
 
-    async delete(request: Request, response: Response){
-        
+    async delete(request: Request, response: Response) {
+
         const { id_d } = request.body;
 
         const usersService = new UsersService;
@@ -69,7 +69,7 @@ class UsersController {
             });
         }
     }
-    
+
 }
 
-export {UsersController};
+export { UsersController };

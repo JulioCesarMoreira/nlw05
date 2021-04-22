@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateSettings1619054523165 implements MigrationInterface {
 
@@ -31,7 +31,7 @@ export class CreateSettings1619054523165 implements MigrationInterface {
                         type: "timestamp",
                         default: "now()"
                     }
-            ]
+                ]
             })
         )
     }

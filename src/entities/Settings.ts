@@ -1,9 +1,9 @@
-import { 
-    Entity, 
-    Column, 
-    PrimaryColumn, 
-    UpdateDateColumn, 
-    CreateDateColumn 
+import {
+    Entity,
+    Column,
+    PrimaryColumn,
+    UpdateDateColumn,
+    CreateDateColumn
 } from "typeorm";
 
 import { v4 as uuid } from "uuid"
@@ -26,7 +26,7 @@ class Settings {
     created_at: Date;
 
     constructor() {
-        if(!this.id){
+        if (!this.id) {
             this.id = uuid();
         }
     }

@@ -21,14 +21,14 @@ interface ISettingsDelete {
 }
 
 class SettingsService {
-    async create({ chat, username } : ISettingsCreate){
+    async create({ chat, username }: ISettingsCreate) {
         const settingsRepository = getCustomRepository(SettingsRepository);
 
         const userAlreadyExists = await settingsRepository.findOne({
             username
         });
 
-        if(userAlreadyExists){
+        if (userAlreadyExists) {
             throw new Error("Settings already exists!");
         }
 
@@ -41,32 +41,32 @@ class SettingsService {
         return settings;
     }
 
-    async read({ id_r } : ISettingsRead){    
+    async read({ id_r }: ISettingsRead) {
         const settings = await getCustomRepository(SettingsRepository)
-        .createQueryBuilder("settings")
-        .where("settings.id = :id", {id: id_r})
-        .getOne();
+            .createQueryBuilder("settings")
+            .where("settings.id = :id", { id: id_r })
+            .getOne();
 
-        if(!settings){
+        if (!settings) {
             throw new Error("Settings do not exists!");
         }
 
         return settings;
     }
 
-    async update({ id_u, chat_u, username_u } : ISettingsUpdate){
+    async update({ id_u, chat_u, username_u }: ISettingsUpdate) {
         const settingsRepository = getCustomRepository(SettingsRepository);
 
         const settings = await getCustomRepository(SettingsRepository)
-        .createQueryBuilder("settings")
-        .where("settings.id = :id", {id: id_u})
-        .getOne();
+            .createQueryBuilder("settings")
+            .where("settings.id = :id", { id: id_u })
+            .getOne();
 
-        if(!settings){
+        if (!settings) {
             throw new Error("Settings do not exists!");
         }
 
-        settings.username  = username_u;
+        settings.username = username_u;
         settings.chat = chat_u;
 
         await settingsRepository.save(settings);
@@ -74,15 +74,15 @@ class SettingsService {
         return settings;
     }
 
-    async delete({ id_d } : ISettingsDelete){
+    async delete({ id_d }: ISettingsDelete) {
         const settingsRepository = getCustomRepository(SettingsRepository);
 
         const settings = await getCustomRepository(SettingsRepository)
-        .createQueryBuilder("settings")
-        .where("settings.id = :id", {id: id_d})
-        .getOne();
+            .createQueryBuilder("settings")
+            .where("settings.id = :id", { id: id_d })
+            .getOne();
 
-        if(!settings){
+        if (!settings) {
             throw new Error("Settings do not exists!");
         }
 

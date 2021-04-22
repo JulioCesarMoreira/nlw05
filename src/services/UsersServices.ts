@@ -22,14 +22,14 @@ interface IUsersDelete {
 }
 
 class UsersService {
-    async create({ name, email } : IUsersCreate){
+    async create({ name, email }: IUsersCreate) {
         const usersRepository = getCustomRepository(UsersRepository);
 
         const userAlreadyExists = await usersRepository.findOne({
             email
         });
 
-        if(userAlreadyExists){
+        if (userAlreadyExists) {
             throw new Error("User already exists!");
         }
 
@@ -42,32 +42,32 @@ class UsersService {
         return users;
     }
 
-    async read({ id_r } : IUsersRead){    
+    async read({ id_r }: IUsersRead) {
         const users = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("users")
-        .where("users.id = :id", {id: id_r})
-        .getOne();
+            .createQueryBuilder("users")
+            .where("users.id = :id", { id: id_r })
+            .getOne();
 
-        if(!users){
+        if (!users) {
             throw new Error("User do not exists!");
         }
 
         return users;
     }
 
-    async update({ id_u, name_u, email_u } : IUsersUpdate){
+    async update({ id_u, name_u, email_u }: IUsersUpdate) {
         const usersRepository = getCustomRepository(UsersRepository);
 
         const users = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("users")
-        .where("users.id = :id", {id: id_u})
-        .getOne();
+            .createQueryBuilder("users")
+            .where("users.id = :id", { id: id_u })
+            .getOne();
 
-        if(!users){
+        if (!users) {
             throw new Error("User do not exists!");
         }
 
-        users.name  = name_u;
+        users.name = name_u;
         users.email = email_u;
 
         await usersRepository.save(users);
@@ -75,15 +75,15 @@ class UsersService {
         return users;
     }
 
-    async delete({ id_d } : IUsersDelete){
+    async delete({ id_d }: IUsersDelete) {
         const usersRepository = getCustomRepository(UsersRepository);
 
         const users = await getCustomRepository(UsersRepository)
-        .createQueryBuilder("users")
-        .where("users.id = :id", {id: id_d})
-        .getOne();
-        
-        if(!users){
+            .createQueryBuilder("users")
+            .where("users.id = :id", { id: id_d })
+            .getOne();
+
+        if (!users) {
             throw new Error("User do not exists!");
         }
 
